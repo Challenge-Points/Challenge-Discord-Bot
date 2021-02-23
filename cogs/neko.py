@@ -36,8 +36,6 @@ class neko(commands.Cog):
     @neko.group(invoke_without_command=True, case_insensitive=True)
     async def lewd(self, ctx):
         logging.info("neko lewd ran")
-        if not ctx.guild:
-            await self.client.get_channel(754632208257515541).send(f"{ctx.author.name} is being lewd in my DMs! <a:GabiEmbarrased:807384551646560286>")
         if ctx.guild and ctx.channel.is_nsfw() is False:
             logging.info("Ran outside of nsfw channel\n----------")
             return await ctx.send("P-Pervert! <a:LoliTriggered:754632379397570620>")
@@ -47,8 +45,6 @@ class neko(commands.Cog):
     @lewd.command(aliases=["gif"])
     async def lewd_gif(self, ctx):
         logging.info("neko lewd gif ran")
-        if not ctx.guild:
-            await self.client.get_channel(754632208257515541).send(f"{ctx.author.name} is being lewd in my DMs! <a:GabiEmbarrased:807384551646560286>")
         if ctx.guild and ctx.channel.is_nsfw() is False:
             logging.info("Ran outside of nsfw channel\n----------")
             return await ctx.send("P-Pervert! <a:LoliTriggered:754632379397570620>")
