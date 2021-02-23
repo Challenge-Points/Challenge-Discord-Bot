@@ -18,12 +18,16 @@ logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 funniList = [
     "Aso kinda cute 😳",
     "Vibros",
+    "Challenge Maps",
+    "Grinding Challenge Points",
+    "Grinding Cummy Points",
     "Shiny Happy Days"
 ]
 
 initial_cogs = [
     "jishaku",
     "cogs.error_handler",
+    "cogs.text",
     "cogs.neko"
 ]
 
@@ -38,7 +42,7 @@ for cog in initial_cogs:
 
 @tasks.loop(hours=1)
 async def status():
-    value = randint(0, len(funniList)) - 1
+    value = (randint(0, len(funniList))) - 1
     await client.change_presence(activity=discord.Game(name=funniList[value]))
     logging.info(f"Status set to: {funniList[value]}")
 

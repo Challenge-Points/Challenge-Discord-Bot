@@ -38,7 +38,7 @@ class neko(commands.Cog):
         logging.info("neko lewd ran")
         if ctx.guild and ctx.channel.is_nsfw() is False:
             logging.info("Ran outside of nsfw channel\n----------")
-            return await ctx.send("P-Pervert! <a:LoliTriggered:754632379397570620>")
+            return await ctx.send("P-Pervert! <a:LoliTriggered:813895000298356764>")
         await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/lewd"), "neko.png"))
         logging.info("attachment sent\n----------")
 
@@ -47,7 +47,7 @@ class neko(commands.Cog):
         logging.info("neko lewd gif ran")
         if ctx.guild and ctx.channel.is_nsfw() is False:
             logging.info("Ran outside of nsfw channel\n----------")
-            return await ctx.send("P-Pervert! <a:LoliTriggered:754632379397570620>")
+            return await ctx.send("P-Pervert! <a:LoliTriggered:813895000298356764>")
         await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/nsfw_neko_gif"), "neko.gif"))
         logging.info("attachment sent\n----------")
 
