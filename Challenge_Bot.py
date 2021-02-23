@@ -24,6 +24,7 @@ funniList = [
 initial_cogs = [
     "jishaku",
     "cogs.error_handler",
+    "cogs.neko"
 ]
 
 
