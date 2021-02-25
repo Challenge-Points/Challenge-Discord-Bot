@@ -1,6 +1,7 @@
 import discord
 import os
 import logging
+from logging.handlers import RotatingFileHandler
 from dotenv import load_dotenv
 from random import randint
 from discord.ext import commands, tasks
@@ -13,7 +14,8 @@ load_dotenv(f"{cwd}/config.env")
 
 intents = discord.Intents.default()
 client = commands.Bot(command_prefix="!cb ",intents=intents,case_insensitive=True,allowed_mentions=discord.AllowedMentions(replied_user=False))
-logging.basicConfig(format= '%(asctime)s:%(levelname)s:%(name)s: %(message)s',filename='log.log',level=logging.INFO)
+logging.basicConfig(format= '%(asctime)s:%(levelname)s:%(name)s: %(message)s',level=logging.INFO,handlers=[logging.handlers.RotatingFileHandler(filename="log.log", maxBytes=5000000, backupCount=1)])
+
 
 funniList = [
     "Aso kinda cute 😳",
