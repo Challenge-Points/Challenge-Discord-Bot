@@ -12,7 +12,7 @@ class text(commands.Cog):
     async def on_message(self, message):
         if message.author == self.bot.user:
             return
-        if message.channel.id == 816398589173432380:
+        if message.channel.id == 816398589173432380 and "https://beatsaver.com/beatmap/" in message.content:
             await message.add_reaction("🟩")
             await message.add_reaction("🟥")
 
