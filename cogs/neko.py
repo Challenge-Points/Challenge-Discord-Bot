@@ -18,22 +18,25 @@ async def image(link):
 
 
 class neko(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.group(invoke_without_command=True, case_insensitive=True)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def neko(self, ctx):
         logging.info("neko ran")
         await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/neko"), "neko.png"))
         logging.info("attachment sent\n----------")
         
     @neko.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def gif(self, ctx):
         logging.info("neko gif ran")
         await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/ngif"), "neko.gif"))
         logging.info("attachment sent\n----------")
 
     @neko.group(invoke_without_command=True, case_insensitive=True)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def lewd(self, ctx):
         logging.info("neko lewd ran")
         if ctx.guild and ctx.channel.is_nsfw() is False:
@@ -43,6 +46,7 @@ class neko(commands.Cog):
         logging.info("attachment sent\n----------")
 
     @lewd.command(aliases=["gif"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def lewd_gif(self, ctx):
         logging.info("neko lewd gif ran")
         if ctx.guild and ctx.channel.is_nsfw() is False:
@@ -52,5 +56,5 @@ class neko(commands.Cog):
         logging.info("attachment sent\n----------")
 
 
-def setup(client):
-    client.add_cog(neko(client))
+def setup(bot):
+    bot.add_cog(neko(bot))
