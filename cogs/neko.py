@@ -25,14 +25,16 @@ class neko(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def neko(self, ctx):
         logging.info("neko ran")
-        await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/neko"), "neko.png"))
+        async with ctx.channel.typing():
+            await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/neko"), "neko.png"))
         logging.info("attachment sent\n----------")
         
     @neko.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def gif(self, ctx):
         logging.info("neko gif ran")
-        await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/ngif"), "neko.gif"))
+        async with ctx.channel.typing():
+            await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/ngif"), "neko.gif"))
         logging.info("attachment sent\n----------")
 
     @neko.group(invoke_without_command=True, case_insensitive=True)
@@ -42,7 +44,8 @@ class neko(commands.Cog):
         if ctx.guild and ctx.channel.is_nsfw() is False:
             logging.info("Ran outside of nsfw channel\n----------")
             return await ctx.send("P-Pervert! <a:LoliTriggered:813895000298356764>")
-        await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/lewd"), "neko.png"))
+        async with ctx.channel.typing():
+            await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/lewd"), "neko.png"))
         logging.info("attachment sent\n----------")
 
     @lewd.command(aliases=["gif"])
@@ -52,7 +55,8 @@ class neko(commands.Cog):
         if ctx.guild and ctx.channel.is_nsfw() is False:
             logging.info("Ran outside of nsfw channel\n----------")
             return await ctx.send("P-Pervert! <a:LoliTriggered:813895000298356764>")
-        await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/nsfw_neko_gif"), "neko.gif"))
+        async with ctx.channel.typing():
+            await ctx.send(file=discord.File(await image("https://nekos.life/api/v2/img/nsfw_neko_gif"), "neko.gif"))
         logging.info("attachment sent\n----------")
 
 
