@@ -23,12 +23,12 @@ class text(commands.Cog):
         await ctx.send(f"Pong! ``{Pong}ms``")
         logging.info(f'Response: {Pong}ms\n----------')
 
-    @commands.command(case_insensitive=True)
+    @commands.command(case_insensitive=True, aliases=["link","website"])
     async def links(self, ctx):
         logging.info('Recieved: links')
         embed = discord.Embed(
             title="Important Challenge Links",
-            description="[Website](http://www.challengepoints.ml/) | [Discord](https://discord.gg/SaEgfnepn7) | [Challenge Points GitHub](https://github.com/Challenge-Points)",
+            description="[Website](https://challengepoints.ml/) | [Discord](https://discord.gg/SaEgfnepn7) | [Challenge Points GitHub](https://github.com/Challenge-Points)",
             color=0xff0000)
         embed.set_thumbnail(url="https://media.discordapp.net/attachments/813876085724020787/813883027960365066/ChallengePointsLogo.png")
         await ctx.send(embed=embed)
