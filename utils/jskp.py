@@ -1,12 +1,11 @@
-from jishaku import Jishaku, JishakuBase
+from jishaku import Jishaku, Feature
 from discord.ext.commands import Context
 
-DEVS = [232574143818760192, 490534335884165121, 580425653325791272]
-
-async def cog_check_patch(self: JishakuBase, ctx: Context):
-    if ctx.author.id in DEVS: return True
-    owners = ctx.bot.owner_ids if ctx.bot.owner_ids else [ctx.bot.owner_id]
-    if ctx.author.id in owners: return True
+async def cog_check_patch(self: Feature, ctx: Context):
+    if "797422816584007720" in str(ctx.author.roles): 
+        return True
+    if ctx.author.id == ctx.bot.owner_id:
+        return True
     return False
 
 Jishaku.cog_check = cog_check_patch
