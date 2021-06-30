@@ -21,10 +21,11 @@ class General(commands.Cog):
     async def links(self, ctx):
         logging.info('Recieved: links')
         embed = Embed(
-            title="Important Challenge Links",
-            description="[Website](https://challengepoints.ml/) | [Discord](https://discord.gg/SaEgfnepn7) | [Challenge Points GitHub](https://github.com/Challenge-Points)",
+            description="""[Challenge Points Website](https://new-challenge-points.herokuapp.com/)
+[Challenge Points Discord](https://discord.gg/SaEgfnepn7)
+[Challenge Points GitHub](https://github.com/Challenge-Points)""",
             color=0xff0000)
-        embed.set_thumbnail(url="https://media.discordapp.net/attachments/813876085724020787/813883027960365066/ChallengePointsLogo.png")
+        embed.set_thumbnail(url=(self.bot.get_guild(812293813518991390).icon_url))
         await ctx.send(embed=embed)
         logging.info(f'Response: embed\n----------')
 
