@@ -1,45 +1,67 @@
-import math
 import logging
+from math import ceil
+from asyncio import sleep
+
+from discord import Embed, Colour
+
 from discord.ext import commands
 
 
-class error_handler(commands.Cog):
+class ErrorHandler(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        logging.info(f"on_command_error triggered")
+        logging.info(f"ErrorHandler invoked")
+        
+
+        if hasattr(ctx.command, "on_error"):
+            return
+        
         if isinstance(error, commands.BadArgument):
-            logging.info("BadArgument handler ran\n----------")
-            return await ctx.send("You've given a bad argument")
+            logging.info("BadArgument handler ran")
+            return await ctx.send(f"You've given a bad argument!\nCheck ``{ctx.prefix}help`` for what arguments you need to give")
 
-        elif isinstance(error, commands.CommandNotFound):
-            logging.info("CommandNotFound handler ran\n----------")
-            return await ctx.send("Command not found", delete_after=20)
+        if isinstance(error, commands.CommandNotFound):
+            logging.info("CommandNotFound handler ran")
+            return await ctx.send("Command not found")
 
-        elif isinstance(error, commands.BotMissingPermissions):
-            logging.info(f"BotMissingPermissions handler ran - {error.missing_perms[0]}\n----------")
-            return await ctx.send(f"Bot missing the following permissions: {error.missing_perms[0]}")
+        if isinstance(error, commands.BotMissingPermissions):
+            logging.info(f"BotMissingPermissions handler ran - {error.missing_perms}")
+            return await ctx.send(f"Bot missing the following permissions: {error.missing_perms}")
 
-        elif isinstance(error, commands.NotOwner):
-            logging.info("NotOwner handler ran\n----------")
-            return await ctx.send('Owner only command')
+        if isinstance(error, commands.NotOwner):
+            logging.info("NotOwner handler ran")
+            return await ctx.send("This is an owner only command.")
 
-        elif isinstance(error, commands.CommandOnCooldown):
-            logging.info("CommandOnCooldown handler ran\n----------")
-            return await ctx.send(f"Command on cooldown, ``{math.ceil(error.retry_after)} seconds``")
+        if isinstance(error, commands.CommandOnCooldown):
+            logging.info("CommandOnCooldown handler ran")
+            message = await ctx.send(f"Command on cooldown, ``{ceil(error.retry_after)} seconds``")
+            await sleep(int(ceil(error.retry_after)))
+            return await message.add_reaction("✅")
 
-        elif isinstance(error, commands.MissingRequiredArgument):
-            logging.info("MissingRequiredArgument handler ran\n----------")
-            # \n``Missing: {error.param.name}``")
-            return await ctx.send(f"You didn't give a required argument.")
+        if isinstance(error, commands.MissingRequiredArgument):
+            logging.info(f"MissingRequiredArgument handler ran. Missing: {error.param.name}")
+            return await ctx.send("You didn't give a required argument.")
 
-        elif isinstance(error, commands.CheckFailure) or isinstance(error, commands.MissingPermissions):
-            logging.info("MissingPermissions handler ran\n----------")
+        if isinstance(error, commands.MissingPermissions):
+            logging.info("MissingPermissions handler ran")
             return await ctx.send("You don't have the permissions for this command.")
-        logging.error(f"{error}\n----------")
+
+
+        logging.error(error)
+        await ctx.send(embed=Embed(
+            title="Uh oh. Something bad happened <:PepeHands:820648896413171722>",
+            description=f"An unhandled error occured.\nIf this keeps occuring open an [issue report](https://github.com/Challenge-Points/Challenge-Discord-Bot/issues)\n\n```{error}```",
+            colour=Colour.red()
+        ))
+        return await self.bot.get_channel(859718487366303774).send(embed=Embed(
+            title=f"{ctx.command} in {ctx.guild.name}",
+            description=f"{ctx.guild.id}\n**Message Content**```{ctx.message.content}```\n**Error**```{error}```",
+            colour=Colour.red()
+        ))
 
 
 def setup(bot):
-    bot.add_cog(error_handler(bot))
+    bot.add_cog(ErrorHandler(bot))
