@@ -1,10 +1,11 @@
-import discord
 import logging
+
+from discord import Embed
+
 from discord.ext import commands
-from discord.utils import get
 
 
-class text(commands.Cog):
+class General(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -16,17 +17,10 @@ class text(commands.Cog):
             await message.add_reaction("🟩")
             await message.add_reaction("🟥")
 
-    @commands.command(case_insensitive=True)
-    async def ping(self, ctx):
-        logging.info('Recieved: ping')
-        Pong = round(self.bot.latency * 1000)
-        await ctx.send(f"Pong! ``{Pong}ms``")
-        logging.info(f'Response: {Pong}ms\n----------')
-
     @commands.command(case_insensitive=True, aliases=["link","website"])
     async def links(self, ctx):
         logging.info('Recieved: links')
-        embed = discord.Embed(
+        embed = Embed(
             title="Important Challenge Links",
             description="[Website](https://challengepoints.ml/) | [Discord](https://discord.gg/SaEgfnepn7) | [Challenge Points GitHub](https://github.com/Challenge-Points)",
             color=0xff0000)
@@ -36,4 +30,4 @@ class text(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(text(bot))
+    bot.add_cog(General(bot))
