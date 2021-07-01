@@ -5,7 +5,7 @@ from discord import Embed
 from discord.ext import commands
 
 
-class stats(commands.Cog):
+class ChallengePoints(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -25,4 +25,4 @@ class stats(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(stats(bot))
+    bot.add_cog(ChallengePoints(bot))
