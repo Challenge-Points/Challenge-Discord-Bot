@@ -18,7 +18,7 @@ load_dotenv(getcwd()+"/.env")
 
 intents = Intents.default()
 intents.members = True
-bot = Bot(command_prefix="!cb ", max_messages=None, intents=intents, case_insensitive=True, allowed_mentions=AllowedMentions(replied_user=False))
+bot = Bot(command_prefix="!cb ", intents=intents, case_insensitive=True, allowed_mentions=AllowedMentions(replied_user=False))
 
 
 cred = credentials.Certificate({
@@ -39,9 +39,11 @@ default_app = initialize_app(cred)
 
 initial_cogs = [
     "jishaku",
-    "cogs.cp.stats",
+    "cogs.beatsaver",
+    "cogs.challenge_points",
     "cogs.error_handler",
     "cogs.general",
+    "cogs.user",
     "cogs.waifu"
 ]
 
